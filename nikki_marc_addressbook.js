@@ -9,12 +9,33 @@ b.) delete entries from the address book
 c.) list all entries in the address book 
 d.) search for an entry in the address book*/
 
+var sget = require('sget');
+
+
+AddressBook = [
+	contacts[
+		marc[],
+		nikki[],
+		paul[],
+		batman[]
+
+	]
+];
+
+//get the users
+
 
 function Contact(name, address, phoneNumber){
+	
+
 	this.name= name;
 	this.address= address;
 	this.phoneNumber= phoneNumber;
-	this.addNewContact= function(){};
+	this.addNewContact= function(){
+			var getName = sget('Enter a name: ');
+			var getAddress = sget('Enter an address: ');
+			var getAddress = sget('Enter a phone number: ');
+		};
 	this.deleteContact = function (){};
 	this.searchContacts= function(){};
 	this.listContacts=function (){};
@@ -26,3 +47,4 @@ var Paul = new Contact("Paul", "1520 Woodward Ave.", "313 555-1212");
 
 console.log(Marc.name);
 
+enterNewContact();
