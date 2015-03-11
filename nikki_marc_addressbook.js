@@ -11,35 +11,31 @@ d.) search for an entry in the address book*/
 
 var sget = require('sget');
 
-
-AddressBook = [
-	contacts[
-		marc[],
-		nikki[],
-		paul[],
-		batman[]
-
-	]
-];
-
-//get the users
-
-
 function Contact(name, address, phoneNumber){
-	
+	this.name = name;
+	this.address = address;
+	this.phoneNumber = phoneNumber;
+};
 
-	this.name= name;
-	this.address= address;
-	this.phoneNumber= phoneNumber;
+function AddressBook() {
+	var contacts = [];
+
 	this.addNewContact= function(){
 			var getName = sget('Enter a name: ');
 			var getAddress = sget('Enter an address: ');
-			var getAddress = sget('Enter a phone number: ');
+			var getPhone = sget('Enter a phone number: ');
 		};
 	this.deleteContact = function (){};
 	this.searchContacts= function(){};
 	this.listContacts=function (){};
 };
+
+//get the users
+
+
+
+
+
 var Marc = new Contact("Marc", "3123 Anystreet Rd.", "248 555-1212");
 var Nikki = new Contact("Marc", "1234 Anystreet", "313 555-1212");
 var Batman = new Contact("Bruce", "The Batcave", "313 BAT-CAVE");
