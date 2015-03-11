@@ -11,6 +11,10 @@ d.) search for an entry in the address book*/
 
 var sget = require('sget');
 
+function openAddressBook (){
+	console.log("Welcome to your Address Book!");
+
+}
 function Contact(name, address, phoneNumber){
 	this.name = name;
 	this.address = address;
@@ -34,9 +38,22 @@ function AddressBook() {
 			return contacts;
 		};
 	this.deleteContact = function (){
-
+		var personToDelete = sget("To delete a contact from your address book, please enter the contact's name").trim();
+		for (i=0; i < contacts.length; i++){ 
+			if (contacts[i].name===personToDelete){
+				console.log(contacts.splice(i,1));
+				console.log(contacts);
+			} 
+		}
 	};
-	this.searchContacts= function(){};
+	this.searchContacts= function(){
+		var personNeeded = sget("To search your address book please enter the contact's name").trim();
+		for (i=0; i < contacts.length; i++){ 
+			if (contacts[i].name===personNeeded){
+				console.log(contacts[i]);
+			} 
+		}
+	};
 	
 	this.listContacts=function(){
 		for (i=0; i < contacts.length; i++){
@@ -48,8 +65,10 @@ function AddressBook() {
 
 var ourAddressBook = new AddressBook();
 
-console.log(ourAddressBook.addNewContact());
+/*console.log(ourAddressBook.addNewContact());
 
-ourAddressBook.listContacts();
+ourAddressBook.listContacts();*/
+ourAddressBook.deleteContact();
+
 
 
