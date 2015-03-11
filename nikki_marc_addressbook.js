@@ -18,29 +18,38 @@ function Contact(name, address, phoneNumber){
 };
 
 function AddressBook() {
-	var contacts = [];
+	var contacts = [
+		{name: "Marc", address: "1520 Woodward", phoneNumber: "313 555-1212"},
+		{name: "Nikki", address: "1528 Woodward", phoneNumber: "313 555-1212"},
+		{name: "Paul", address: "1520 Woodward", phoneNumber: "313 555-1222"},
+		{name: "Batman", address: "The Batcave", phoneNumber: "313 BAT-CAVE"}
+	];
 
 	this.addNewContact= function(){
-			var getName = sget('Enter a name: ');
-			var getAddress = sget('Enter an address: ');
-			var getPhone = sget('Enter a phone number: ');
+			var getName = sget('Enter a name: ').trim();
+			var getAddress = sget('Enter an address: ').trim();
+			var getPhone = sget('Enter a phone number: ').trim();
+			var contact = new Contact(getName, getAddress, getPhone);
+			contacts.push(contact);
+			return contacts;
 		};
-	this.deleteContact = function (){};
+	this.deleteContact = function (){
+
+	};
 	this.searchContacts= function(){};
-	this.listContacts=function (){};
+	
+	this.listContacts=function(){
+		for (i=0; i < contacts.length; i++){
+	
+			console.log("Name: " + contacts[i].name + "\nAddress: " + contacts[i].address + "\nPhone: " + contacts[i].phoneNumber + "\n");  
+		}
+	};
 };
 
-//get the users
+var ourAddressBook = new AddressBook();
+
+console.log(ourAddressBook.addNewContact());
+
+ourAddressBook.listContacts();
 
 
-
-
-
-var Marc = new Contact("Marc", "3123 Anystreet Rd.", "248 555-1212");
-var Nikki = new Contact("Marc", "1234 Anystreet", "313 555-1212");
-var Batman = new Contact("Bruce", "The Batcave", "313 BAT-CAVE");
-var Paul = new Contact("Paul", "1520 Woodward Ave.", "313 555-1212");
-
-console.log(Marc.name);
-
-enterNewContact();
