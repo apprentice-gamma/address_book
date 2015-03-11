@@ -12,7 +12,36 @@ d.) search for an entry in the address book*/
 var sget = require('sget');
 
 function openAddressBook (){
-	console.log("Welcome to your Address Book!");
+	selectedOption=sget("Welcome to your Address Book!\n (1) Add a contact\n (2) Delete a contact\n (3) View address book\n (4) Search your address book").trim();
+
+	switch(selectedOption){
+		case "1":
+		ourAddressBook.addNewContact();
+		console.log("You have added...");
+		console.log(ourAddressBook.contacts[ourAddressBook.contacts.length-1]);
+		openAddressBook();
+		break;
+
+		case "2":
+		ourAddressBook.deleteContact();
+		openAddressBook();
+		break;
+
+		case "3":
+		ourAddressBook.listContacts();
+		openAddressBook();
+		break;
+
+		case "4":
+		ourAddressBook.searchContacts();
+		openAddressBook();
+		break;
+
+		default:
+		console.log("Invalid input please select another option");
+		openAddressBook();
+
+	}
 
 }
 function Contact(name, address, phoneNumber){
@@ -22,7 +51,8 @@ function Contact(name, address, phoneNumber){
 };
 
 function AddressBook() {
-	var contacts = [
+	//var contacts;
+	this.contacts = [
 		{name: "Marc", address: "1520 Woodward", phoneNumber: "313 555-1212"},
 		{name: "Nikki", address: "1528 Woodward", phoneNumber: "313 555-1212"},
 		{name: "Paul", address: "1520 Woodward", phoneNumber: "313 555-1222"},
@@ -34,41 +64,42 @@ function AddressBook() {
 			var getAddress = sget('Enter an address: ').trim();
 			var getPhone = sget('Enter a phone number: ').trim();
 			var contact = new Contact(getName, getAddress, getPhone);
-			contacts.push(contact);
-			return contacts;
+			this.contacts.push(contact);
+			return this.contacts;
 		};
 	this.deleteContact = function (){
 		var personToDelete = sget("To delete a contact from your address book, please enter the contact's name").trim();
-		for (i=0; i < contacts.length; i++){ 
-			if (contacts[i].name===personToDelete){
-				console.log(contacts.splice(i,1));
-				console.log(contacts);
+		for (i=0; i < this.contacts.length; i++){ 
+			if (this.contacts[i].name===personToDelete){
+				console.log("You have removed...");
+				console.log(this.contacts.splice(i,1));
 			} 
 		}
 	};
 	this.searchContacts= function(){
 		var personNeeded = sget("To search your address book please enter the contact's name").trim();
-		for (i=0; i < contacts.length; i++){ 
-			if (contacts[i].name===personNeeded){
-				console.log(contacts[i]);
+		for (i=0; i < this.contacts.length; i++){ 
+			if (this.contacts[i].name===personNeeded){
+				console.log(this.contacts[i]);
 			} 
 		}
 	};
 	
 	this.listContacts=function(){
-		for (i=0; i < contacts.length; i++){
+		for (i=0; i < this.contacts.length; i++){
 	
-			console.log("Name: " + contacts[i].name + "\nAddress: " + contacts[i].address + "\nPhone: " + contacts[i].phoneNumber + "\n");  
+			console.log("Name: " + this.contacts[i].name + "\nAddress: " + this.contacts[i].address + "\nPhone: " + this.contacts[i].phoneNumber + "\n");  
 		}
 	};
 };
 
 var ourAddressBook = new AddressBook();
+openAddressBook();
 
 /*console.log(ourAddressBook.addNewContact());
 
-ourAddressBook.listContacts();*/
-ourAddressBook.deleteContact();
+ourAddressBook.listContacts();
+ourAddressBook.deleteContact();*/
 
 
 
