@@ -17,9 +17,16 @@ function AddressBook (entries){
 	//using the searchEntries function get index and use addyBook.splice([index],1) to remove entry.
 	};
 
+	//be able to print an entry's name by passing in entries[index]
+ 	this.printName = function(entry){
+    	console.log(entry.name);
+	}
+
 
 	this.listEntries = function(){
-	console.log()
+		for (var i = 0; i < this.entries.length; i++) {
+			this.printName(this.entries[i]);
+		};
 	};
 
 
@@ -37,6 +44,7 @@ function AddressBook (entries){
 		switch (userMenuChoice){
 			case "1":
 				console.log("OK, list entries.");
+				this.listEntries();
 				break;
 			case "2":
 				console.log("OK, search for entry."); 
@@ -67,17 +75,17 @@ function Entry (name, address, phoneNumber){
 
 //New objects
 
-
-var firstBook = new AddressBook([Mariah, Kitty, Erika, Robb]);
-
 var Mariah = new Entry("Mariah", "France", "313-555-6666");
 var Kitty = new Entry("Kitty", "Jamaica", "313-555-8888");
 var Erika = new Entry("Erika", "Ecuador", "313-555-5555" );
 var Robb = new Entry ("Robb", "Antarctica", "313-555-7777");
 
+var firstBook = new AddressBook([Mariah, Kitty, Erika, Robb]);
+
 //Running program
 
 console.log("\n-----------------------------------------------\n Welcome to your Address Book!\n You currently have 4 entries in your book,\n feel free to add, delete, list, or search the entries!\n-----------------------------------------------\n");
+
 
 firstBook.userMenu();
 
