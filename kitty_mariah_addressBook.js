@@ -1,5 +1,8 @@
 var sget = require("sget");
 
+function getContactInput(message) {
+	return sget(message).trim();
+}
 
 //Object constructors
 
@@ -30,7 +33,34 @@ function AddressBook (entries){
 	};
 
 
+
+
+
+	this.searchThroughEntries = function(myArray, searchTerm, property) {
+	   for(var i = 0, len = myArray.length; i < len; i++) {
+	       if (myArray[i][property].toLowerCase() === searchTerm.toLowerCase()) return i;
+	   }
+	   return -1;
+	}
+	
+
+
+
+
+
+
 	this.searchEntries = function(){
+		var entryQuery = getContactInput("Who are you looking for?");
+		// console.log(this.entries.name);
+		// console.log(this.entries.indexOf(entryQuery) + "\n---------------------------------");
+		if (this.searchThroughEntries(this.entries, entryQuery, "name") !== -1) {
+			this.displayEntry(entryQuery);
+		} else{
+		//nest if/else this is not in here want to add? then call the addEntry function.
+			console.log("I'm sorry %s is not found in your address book. Please enter another name.\n",entryQuery);
+			return this.searchEntries();
+		};
+		
 	//use findIndex() to return index of entry, plug into display function ie. this.displayentry(this.entries[index])
 	};
 
@@ -49,7 +79,8 @@ function AddressBook (entries){
 				this.listEntries();
 				break;
 			case "2":
-				console.log("OK, search for entry."); 
+				console.log("OK, search for entry.");
+				this.searchEntries(); 
 				break;
 			case "3":
 				console.log("OK, add entry."); 				 
@@ -77,17 +108,19 @@ function Entry (name, address, phoneNumber){
 
 //New objects
 
-var Mariah = new Entry("Mariah", "France", "313-555-6666");
-var Kitty = new Entry("Kitty", "Jamaica", "313-555-8888");
-var Erika = new Entry("Erika", "Ecuador", "313-555-5555" );
-var Robb = new Entry ("Robb", "Antarctica", "313-555-7777");
+var mariah = new Entry("Mariah", "France", "313-555-6666");
+var kitty = new Entry("Kitty", "Jamaica", "313-555-8888");
+var erika = new Entry("Erika", "Ecuador", "313-555-5555" );
+var robb = new Entry ("Robb", "Antarctica", "313-555-7777");
 
-var firstBook = new AddressBook([Mariah, Kitty, Erika, Robb]);
+var firstBook = new AddressBook([mariah, kitty, erika, robb]);
 
 //Running program
 
 console.log("\n-----------------------------------------------\n Welcome to your Address Book!\n You currently have 4 entries in your book,\n feel free to add, delete, list, or search the entries!\n-----------------------------------------------\n");
 
+console.log(firstBook.searchThroughEntries(firstBook.entries, "robb", "name"));
+// console.log(firstBook.displayEntry(robb));
 
 firstBook.userMenu();
 
