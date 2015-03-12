@@ -1,9 +1,13 @@
 var sget = require('sget');
+var clear = require('clear');
+
+
+clear();
 
 function AddressBook(entry1, entry2, entry3, entry4){
 	this.entries = [entry1, entry2, entry3, entry4];
 
-	this.showBook = function(){
+	this.showBook = function() {
 		for(var i=0;i<this.entries.length;i++){
 			this.entries[i].showEntry();
 		}
@@ -21,7 +25,7 @@ function AddressBook(entry1, entry2, entry3, entry4){
 
 	}
 
-	this.deleteEntry = function(){
+	this.deleteEntry = function() {
 		console.log("DELETE ENTRIES\n===================================\n");
 		
 		for(var i=0;i<this.entries.length;i++){
@@ -37,15 +41,21 @@ function AddressBook(entry1, entry2, entry3, entry4){
 			this.entries.splice(input-1);
 			console.log("BALEETED!");
 		}
-
 	}
 
-
+	this.search = function() {
+	var input = sget("Please enter in the last name of the person you are looking for:").trim().toLowerCase();
+	for(var i = 0; i < this.entries.length;  i++) {
+		if (input === this.entries[i].lastName.toLowerCase()) {
+			this.entries[i].showEntry();
+			}
+		}
+	}
 
 }
 
 
-function AddressEntry(firstName, lastName, phone, address){
+function AddressEntry(firstName, lastName, phone, address) {
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.phone = phone;
@@ -55,7 +65,9 @@ function AddressEntry(firstName, lastName, phone, address){
 	
 		console.log("===================================\nName: "+this.firstName+" "+this.lastName+"\nPhone: "+this.phone+"\nAddress: "+this.address+"\n===================================\n")
 	}
+
 }
+
 
 var drZoidberg = new AddressEntry("Dr.", "Zoidberg", "313-555-7294", "Space");
 var peeWee = new AddressEntry("Pee-wee", "Herman", "313-555-4242", "1569 Hollywood St Detroit MI 48216");
@@ -63,15 +75,15 @@ var jenny = new AddressEntry("Jenny","Smith", "313-867-5309", "1444 Someplace Pl
 var missCleo = new AddressEntry("Call me now!", "Cleo","1-800-MIS-CLEO", "Jamaica or something");
 
 var myBook = new AddressBook(drZoidberg, peeWee, jenny, missCleo);
-console.log(myBook);
 
-function displayMainMenu(){
+
+function displayMainMenu() {
 	
-	console.log("WELCOME TO THE ADDRESS-O-MATIC 9000\n===================================\n1) Add a new entry.\n2) Display contacts \n3) Delete contact \n5) Quit.\n===================================");
+	console.log("WELCOME TO THE ADDRESS-O-MATIC 9000\n===================================\n1) Add a new entry\n2) Display contacts \n3) Delete contact \n4) Search by Last Name \n5) Quit.\n===================================");
 	
 	var input=handleInput();
 
-	switch(input){
+	switch(input) {
 		case 1:
 			myBook.addAddress();
 			displayMainMenu();
@@ -85,6 +97,8 @@ function displayMainMenu(){
 			displayMainMenu();
 			break;
 		case 4:
+			myBook.search();
+			displayMainMenu();
 			break;
 		case 5:
 			console.log("Goodbye!");
@@ -96,13 +110,13 @@ function displayMainMenu(){
 	}
 }
 
-function handleInput(){
+function handleInput() {
 	
 	var userInput = parseInt(sget("Enter your choice... ").trim());
 	
 	if (isNaN(userInput) || userInput>5 || userInput<1){
 		console.log("Please enter a number!");
-		handleInput();
+		return handleInput();
 	}
 	else {return userInput;}
 
