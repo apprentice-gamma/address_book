@@ -17,7 +17,18 @@ function AddressBook (entries){
 
 
 	this.deleteEntry = function(){
-	//using the searchEntries function get index and use addyBook.splice([index],1) to remove entry.
+	//using the searchEntries function get index and use this.entries.splice([index],1) to remove entry.
+		var entryQuery = getUserInput("Who would you like to delete?");
+		var queryIndex = this.searchThroughEntries(this.entries, entryQuery, "name")
+
+		if (queryIndex !== -1) {
+			console.log("Deleting\n" + entryQuery);
+			this.entries.splice(queryIndex,1);
+		} else{
+		//nest if/else this is not in here want to add? then call the addEntry function.
+			console.log("I'm sorry %s is not found in your address book. Please enter another name.\n",entryQuery);
+			return this.deleteEntry();
+		};
 	};
 
 	//be able to print an entry's name by passing in entries[index]
@@ -25,16 +36,11 @@ function AddressBook (entries){
     	console.log(entry.name);
 	}
 
-
 	this.listEntries = function(){
 		for (var i = 0; i < this.entries.length; i++) {
 			this.displayName(this.entries[i]);
 		};
 	};
-
-
-
-
 
 	this.searchThroughEntries = function(myArray, searchTerm, property) {
 	   for(var i = 0, len = myArray.length; i < len; i++) {
@@ -43,7 +49,6 @@ function AddressBook (entries){
 	   return -1;
 	}
 	
-
 	this.searchEntries = function(){
 		var entryQuery = getUserInput("Who are you looking for?");
 		var queryIndex = this.searchThroughEntries(this.entries, entryQuery, "name")
@@ -72,16 +77,21 @@ function AddressBook (entries){
 			case "1":
 				console.log("OK, list entries.");
 				this.listEntries();
+				return this.userMenu();
 				break;
 			case "2":
 				console.log("OK, search for entry.");
 				this.searchEntries(); 
+				return this.userMenu();
 				break;
 			case "3":
-				console.log("OK, add entry."); 				 
+				console.log("OK, add entry.");
+				return this.userMenu(); 				 
 				break;
 			case "4":
-				console.log("OK, delete entry."); 				 
+				console.log("OK, delete entry.");
+				this.deleteEntry(); 
+				return this.userMenu();				 
 				break;	
 			case "exit":
 				console.log("Goodbye.");
@@ -113,9 +123,6 @@ var firstBook = new AddressBook([mariah, kitty, erika, robb]);
 //Running program
 
 console.log("\n-----------------------------------------------\n Welcome to your Address Book!\n You currently have 4 entries in your book,\n feel free to add, delete, list, or search the entries!\n-----------------------------------------------\n");
-
-console.log(firstBook.displayEntry(kitty));
-// console.log(firstBook.displayEntry(robb));
 
 firstBook.userMenu();
 
