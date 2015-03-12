@@ -18,24 +18,26 @@ function AddressBook (entries){
 	};
 
 	//be able to print an entry's name by passing in entries[index]
- 	this.printName = function(entry){
+ 	this.displayName = function(entry){
     	console.log(entry.name);
 	}
 
 
 	this.listEntries = function(){
 		for (var i = 0; i < this.entries.length; i++) {
-			this.printName(this.entries[i]);
+			this.displayName(this.entries[i]);
 		};
 	};
 
 
 	this.searchEntries = function(){
-	//use findIndex() to return index of entry, plug into display function
+	//use findIndex() to return index of entry, plug into display function ie. this.displayentry(this.entries[index])
 	};
 
-	this.displayEntry = function(){
-	// use index of addyBook array to display fields of entry
+	this.displayEntry = function(entry){
+		console.log(entry.name);
+		console.log(entry.address);
+		console.log(entry.phoneNumber);
 	};
 
 	this.userMenu = function(){
