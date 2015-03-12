@@ -1,6 +1,6 @@
 var sget = require("sget");
 
-function getContactInput(message) {
+function getUserInput(message) {
 	return sget(message).trim();
 }
 
@@ -44,17 +44,12 @@ function AddressBook (entries){
 	}
 	
 
-
-
-
-
-
 	this.searchEntries = function(){
-		var entryQuery = getContactInput("Who are you looking for?");
-		// console.log(this.entries.name);
-		// console.log(this.entries.indexOf(entryQuery) + "\n---------------------------------");
-		if (this.searchThroughEntries(this.entries, entryQuery, "name") !== -1) {
-			this.displayEntry(entryQuery);
+		var entryQuery = getUserInput("Who are you looking for?");
+		var queryIndex = this.searchThroughEntries(this.entries, entryQuery, "name")
+
+		if (queryIndex !== -1) {
+			this.displayEntry(this.entries[queryIndex]);
 		} else{
 		//nest if/else this is not in here want to add? then call the addEntry function.
 			console.log("I'm sorry %s is not found in your address book. Please enter another name.\n",entryQuery);
@@ -71,7 +66,7 @@ function AddressBook (entries){
 	};
 
 	this.userMenu = function(){
-		var userMenuChoice = sget("Welcome\n What would you like to do with your address book?\n Enter number or exit\n 1- list entries\n 2- search for entry\n 3- add entry\n 4- delete entry\n exit- to leave\n").trim();
+		var userMenuChoice = getUserInput("Welcome\n What would you like to do with your address book?\n Enter number or exit\n 1- list entries\n 2- search for entry\n 3- add entry\n 4- delete entry\n exit- to leave\n");
 
 		switch (userMenuChoice){
 			case "1":
@@ -119,7 +114,7 @@ var firstBook = new AddressBook([mariah, kitty, erika, robb]);
 
 console.log("\n-----------------------------------------------\n Welcome to your Address Book!\n You currently have 4 entries in your book,\n feel free to add, delete, list, or search the entries!\n-----------------------------------------------\n");
 
-console.log(firstBook.searchThroughEntries(firstBook.entries, "robb", "name"));
+console.log(firstBook.displayEntry(kitty));
 // console.log(firstBook.displayEntry(robb));
 
 firstBook.userMenu();
