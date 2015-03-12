@@ -2,6 +2,7 @@
 Linda and Kelsey
 
 */
+var sget = require('sget');
 
 function Contact(name, address, phone) {
 		this.name = name;
@@ -32,11 +33,49 @@ AddressBook.prototype.delete = function(contact) {
 };
 
 AddressBook.prototype.search = function(contactName) {
+	var foundPerson;
 	this.contacts.forEach(function(searchContact){
 		if (searchContact.name === contactName) {
-			return searchContact.view();		
+			foundPerson = searchContact;		
 		}
 	})
+	return foundPerson;
+}
+
+function getInput(saying) {
+	var input = sget(saying).trim();
+	return input;
+}
+
+function callSearch(input) {
+	var foundPerson = myAddressBook.search(input);
+	if (foundPerson === undefined){
+		return console.log("Person Not Found");
+	} else {
+		return foundPerson.view();
+	}
+}
+
+function openAddressBook(){
+	console.log("1 - add a contact\n2 - delete a contact\n3 - list the contacts\n4 - search for a contact")
+	var userInput =  getInput("What would you like to do with your address book?");
+	switch (userInput) {
+		case "1":
+
+			break;
+		case "2":
+
+			break;
+		case "3":
+			myAddressBook.list();
+			break;
+		case "4":
+			callSearch(getInput("Who would you like to search for?"));
+			break;
+		default:
+			arguments.callee();
+			break;
+	}
 }
 
 var bozo = new Contact("Bozo the Clown", "Circus", "333-543-4567");
@@ -46,10 +85,4 @@ var john = new Contact("John Doe", "Alaska", "999-999-2302");
 
 myAddressBook = new AddressBook([bozo,dog,jane,john]);
 
-// var matt = new Contact("Matt Doe", "LA", "888-909-9000");
-// console.log("-----------------------")
-// myAddressBook.delete(dog);
-// myAddressBook.list();
-// console.log("-----------------------")
-// myAddressBook.search("Jane Doe");
-// myAddressBook.search("Bob");
+openAddressBook();
