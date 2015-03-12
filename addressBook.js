@@ -56,6 +56,16 @@ function callSearch(input) {
 	}
 }
 
+function deletePerson(input) {
+	var person = myAddressBook.search(input);
+	if (person === undefined){
+		return console.log("Person Not Found");
+	} else {
+		console.log( input + " was deleted from your address book");
+		return myAddressBook.delete(person);
+	}
+}
+
 function openAddressBook(){
 	console.log("1 - add a contact\n2 - delete a contact\n3 - list the contacts\n4 - search for a contact")
 	var userInput =  getInput("What would you like to do with your address book?");
@@ -64,7 +74,7 @@ function openAddressBook(){
 
 			break;
 		case "2":
-
+			deletePerson(getInput("Who would you like to delete?"));
 			break;
 		case "3":
 			myAddressBook.list();
