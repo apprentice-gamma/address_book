@@ -66,12 +66,21 @@ function deletePerson(input) {
 	}
 }
 
+function createContact() {
+	var getName = getInput("What is the name of the person you are adding?");
+	var getAddress = getInput("What is the address of the person you are adding?");
+	var getPhone = getInput("What is the phone of the person you are adding?");
+	var contact = new Contact(getName, getAddress, getPhone);
+	return contact;
+}
+
 function openAddressBook(){
 	console.log("1 - add a contact\n2 - delete a contact\n3 - list the contacts\n4 - search for a contact")
 	var userInput =  getInput("What would you like to do with your address book?");
 	switch (userInput) {
 		case "1":
-
+			myAddressBook.add(createContact());
+			myAddressBook.list();
 			break;
 		case "2":
 			deletePerson(getInput("Who would you like to delete?"));
