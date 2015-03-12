@@ -11,9 +11,15 @@ function AddressBook (entries){
 	this.entries = entries;
 
 
-	this.addEntry = function(){
-	//push to addyBook
+	this.addEntry = function (name, phone, address) {
+		console.log("Adding %s to your address book.", name);
+		this.entries.push(new Entry(name, phone, address));
 	};
+
+// this.add = function (name, phone, address) {
+// 		console.log("Adding contact...");
+// 		this.entries.push(new Entry(name, phone, address));
+// 	};
 
 
 	this.deleteEntry = function(){
@@ -86,6 +92,7 @@ function AddressBook (entries){
 				break;
 			case "3":
 				console.log("OK, add entry.");
+				this.addEntry(getUserInput("Please enter a Name "), getUserInput("Phone Number "), getUserInput("Address"));
 				return this.userMenu(); 				 
 				break;
 			case "4":
